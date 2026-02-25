@@ -1,0 +1,36 @@
+# Python virtual environments
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Environment + secret files
+.env
+.env.*
+.secret.*
+
+# macOS metadata
+.DS_Store
+
+# UV-specific lock file
+uv.lock
+
+# Compiled binaries or temp files
+*.so
+*.log
+*.bak
+
+# System-specific Python version manager files
+.python-version
+
+# Password holder
+git-password.txt
+
+# Quick testing
+test.py
