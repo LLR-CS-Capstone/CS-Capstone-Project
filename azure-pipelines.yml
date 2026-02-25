@@ -7,18 +7,29 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.13'
+    versionSpec: '3.11'
 
 - script: |
     python -m pip install --upgrade pip
     pip install -r requirements.txt
-  displayName: 'Install dependencies'
+  displayName: Install dependencies
 
-- script: |
-    echo "Build step complete"
-  displayName: 'Build'
+# Create a zip artifact of the repo contents for deployment
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+    replaceExistingArchive: true
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'sc-capstone-azure'
+    appName: 'YOUR_WEB_APP_NAME'
+    package: '$(Build.ArtifactStagingDirectory)/app.zip'
